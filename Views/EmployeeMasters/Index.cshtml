@@ -1,0 +1,79 @@
+﻿@model IEnumerable<EmployeeManagementSystem.Models.vmEmployeeData>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Employee Details</h1>
+
+
+
+<div style="margin-bottom: 70px;">
+    <a asp-action="Create" class="btn btn-primary">Add Employee</a>
+    <input type="text" id="filterInput" placeholder="Filter by" style="float:right;">
+    
+</div>
+<table class="table" id="employeeTable" style="border: darkgray;border-style: groove;">
+    <thead>
+        <tr>
+            <th style="outline: thin solid">
+                @Html.DisplayNameFor(model => model.EmployeeName)
+            </th>
+            <th style="outline: thin solid">
+                @Html.DisplayNameFor(model => model.EmailId)
+            </th>
+            <th style="outline: thin solid">
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>
+            <th style="outline: thin solid">
+                @Html.DisplayNameFor(model => model.DepartmentName)
+            </th>
+            <th style="outline: thin solid">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="outline: thin solid">
+                    @Html.DisplayFor(modelItem => item.EmployeeName)
+                </td>
+                <td style="outline: thin solid">
+                    @Html.DisplayFor(modelItem => item.EmailId)
+                </td>
+                <td style="outline: thin solid">
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td style="outline: thin solid">
+                    @Html.DisplayFor(modelItem => item.DepartmentName)
+                    @Html.HiddenFor(modelItem => item.EmployeeId)
+                    @Html.HiddenFor(modelItem => item.DepartmentId)
+                </td>
+                <td style="outline: thin solid">                    
+                    <a asp-action="Edit" asp-route-id="@item.EmployeeId">Update</a> |
+                    <a asp-action="Details" asp-route-id="@item.EmployeeId">View</a> |
+                    <a asp-action="Delete" asp-route-id="@item.EmployeeId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#filterInput').keyup(function () {
+                var filter = $(this).val().toLowerCase();
+                $('#employeeTable tbody tr').each(function () {
+                    var name = $(this).find('td:eq(0)').text().toLowerCase();
+                    var email = $(this).find('td:eq(1)').text().toLowerCase();
+                    var department = $(this).find('td:eq(3)').text().toLowerCase();
+                    if (name.indexOf(filter) !== -1 || email.indexOf(filter) !== -1 || department.indexOf(filter) !== -1) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+    </script>
+}

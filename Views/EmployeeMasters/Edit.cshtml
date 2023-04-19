@@ -1,0 +1,66 @@
+﻿@model EmployeeManagementSystem.Models.vmEmployeeData
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>EmployeeMaster</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="EmployeeId" />
+            <input type="hidden" asp-for="DepartmentId" />
+            <input type="hidden" asp-for="DepartmentName" />
+            <div class="form-group">
+                <label asp-for="EmployeeName" class="control-label"></label>
+                <input asp-for="EmployeeName" class="form-control" />
+                <span asp-validation-for="EmployeeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailId" class="control-label"></label>
+                <input asp-for="EmailId" class="form-control" type="email" />
+                <span asp-validation-for="EmailId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBirth" class="control-label"></label>
+                <input asp-for="DateOfBirth" class="form-control" type="date" value="@Model.DateOfBirth.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="DepartmentId">Department:</label>
+                <select class="form-control department" id="DepartmentId" name="DepartmentId">
+                    <option value="">Select Department</option>
+                    @foreach (var department in ViewBag.Departments)
+                    {
+                        <option value="@department.DepartmentId" selected="@(department.DepartmentId == Model.DepartmentId ? "selected" : null)">@department.DepartmentName</option>
+                    }
+                </select>
+                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+            </div>
+            <br />
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" asp-controller="EmployeeMasters" class="btn btn-primary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+
+        $('.department').change(function () {
+            var departmentId = $(this).val();
+            $('#DepartmentId').val(departmentId);
+            $('#DepartmentName').val($(".department option:selected").text());
+        });
+    </script>
+
+}

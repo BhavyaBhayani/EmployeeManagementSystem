@@ -1,0 +1,60 @@
+﻿@model EmployeeManagementSystem.Models.vmEmployeeData
+
+@{
+    ViewData["Title"] = "Details";
+}
+<style type="text/css">
+    #EmployeeDetails {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+   /* dt {
+        min-height: 30px;
+        border: 1px solid #ccc;
+        padding: 5px;
+    }
+
+    dd {
+        border: 1px solid #ccc;
+        padding: 5px;
+    }*/
+</style>
+
+<div id="EmployeeDetails">
+    <h4>Employee Details</h4>
+    <hr />
+    <dl class="row" >
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EmployeeName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EmployeeName)
+        </dd>
+        <hr />
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EmailId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EmailId)
+        </dd>
+        <hr />
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </dd>
+        <hr />
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DepartmentName)
+        </dd>
+        <hr />        
+    </dl>
+    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model?.EmployeeId">Edit</a>
+    <a asp-action="Index" asp-controller="EmployeeMasters" class="btn btn-primary">Back</a>
+</div>
